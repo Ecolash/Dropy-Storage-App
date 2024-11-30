@@ -13,12 +13,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Image
                 src="/assets/icons/logo-full.svg"
                 alt="logo"
-                width={184}
-                height={62}
-                className="h-auto m-2 ml-5 mr-5"
+                width={240}
+                height={60}
+                className="h-auto w-1/2 m-2 ml-[-10px] mr-5"
         />
 
-        <div className="space-y-2 text-white ml-5 mr-5">
+        <div className="space-y-1 text-white mt-10 ml-10 mr-10">
                 <h2 className="h2 animate-fade-in">Drop your files in a go</h2>
                 <p className="body-1 animate-fade-in-delayed">
                 Securely store, share and manage your files with ease with our cloud storage solution.
@@ -33,7 +33,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             className="transition-all w-full scale-120"
             />
         </div>
-        <div className="mt-8 m-5">
+        <div className="m-5 xl:m-10">
         <div
             id="features-toggle"
             className="flex items-center cursor-pointer px-4 py-2 rounded-xl bg-subbrand text-white hover:bg-blue-900 ml-auto"
@@ -73,8 +73,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </div>
     </section>
 
-    <section className="flex flex-1 flex-col items-center bg-white p-4 py-10 lg:justify-center lg:p-10 lg:py-0 bg-indigo-100">
-        <div className="mb-16 lg:hidden">
+    <section className="flex flex-1 flex-col items-center p-4 py-10 lg:justify-center lg:p-10 lg:py-0 bg-indigo-100">
+        <div className="mb-16 lg:hidden bg-indigo-100">
         <Image
             src="/assets/icons/logo-full-brand.svg"
             alt="logo"
@@ -83,7 +83,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             className="h-auto w-[200px] lg:w-[250px]"
         />
         </div>
-        <div className="mt-8 ">
+        <div className="flex flex-1 justify-center items-center w-full mt-8 bg-indigo-100">
         {children}
         </div>
     </section>

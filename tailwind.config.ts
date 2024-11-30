@@ -11,31 +11,33 @@ const config: Config = {
   	extend: {
   		colors: {
   			brand: {
-				'100': '#87CEEB', 
-				'200': '#4682B4', 
-				'300': '#1E90FF', 
-				'400': '#5F9EA0', 
-				DEFAULT: '#04203D' 
-			},
-			subbrand: { 
-				DEFAULT: '#042549' 
-
-			},
-			error: '#b80000',
-			success: '#3DD9B3',
-			accent: '#56B8FF',
-			pink: '#EEA8FD',
-			orange: '#F9AB72',
-			light: {
-				'100': '#333F4E',
-				'200': '#A3B2C7',
-				'300': '#F2F5F9',
-				'400': '#F2F4F8'
-			},
-			dark: {
-				'100': '#04050C',
-				'200': '#131524'
-			},
+  				'100': '#87CEEB',
+  				'200': '#4682B4',
+  				'300': '#1E90FF',
+  				'400': '#5F9EA0',
+  				DEFAULT: '#04203D'
+  			},
+  			subbrand: {
+  				DEFAULT: '#042549'
+  			},
+  			error: '#f81100',
+  			success: '#3DD9B3',
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			pink: '#EEA8FD',
+  			orange: '#F9AB72',
+  			light: {
+  				'100': '#333F4E',
+  				'200': '#A3B2C7',
+  				'300': '#F2F5F9',
+  				'400': '#F2F4F8'
+  			},
+  			dark: {
+  				'100': '#04050C',
+  				'200': '#131524'
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -57,10 +59,6 @@ const config: Config = {
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
