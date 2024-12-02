@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
+import { OTPModal } from "@/components/OTPModal";
 import {
   Form,
   FormControl,
@@ -18,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { createAccount } from "@/lib/actions/user.actions";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -28,7 +30,10 @@ return z.object({
         formType === "sign-up"
             ? z.string().min(2).max(50)
             : z.string().optional(),
-    mobile: z.string().regex(/^\d{10}$/, "Invalid mobile number"),
+    mobile:         
+        formType === "sign-up" ?
+            z.string().regex(/^\d{10}$/, "Invalid mobile number") :
+            z.string().optional(),
 });
 };
 
@@ -42,6 +47,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
+      mobile: "",
       email: "",
     },
   });
@@ -51,6 +57,21 @@ const AuthForm = ({ type }: { type: FormType }) => {
         console.log("Full Name:", values.fullName);
         console.log("Mobile Number:", values.mobile);
         console.log("Email:", values.email);
+        setIsLoading(true);
+
+        try {
+          const user = await createAccount(
+            {
+                fullName: values.fullName || "",
+                mobile: values.mobile || "",
+                email: values.email
+            });
+          setAccountId(user.accountID);
+        }
+        catch {
+          setErrorMessage('Failed to create account');
+        }
+       
     };
 
   return (
@@ -95,7 +116,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
                     <FormControl>
                       <div className="flex flex-row items-center bg-indigo-100 py-0 mb-3">
-                        <p className="mr-2 my-0 py-0 flex-shrink-0 font-bold">🇮🇳 +91</p>
+                        <p className="mr-2 my-0 py-0 flex-shrink-0 font-bold">🇮🇳  +91</p>
                         <Input
                           placeholder="Enter your phone number"
                           className="bg-none w-full border-none outline-none"
@@ -169,6 +190,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           </div>
         </form>
       </Form>
+      {accountId && (<OTPModal email={form.getValues('email')} accountId={accountId} />)}
     </div>
   );
 };

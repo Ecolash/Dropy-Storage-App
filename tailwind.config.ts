@@ -11,14 +11,15 @@ const config: Config = {
   	extend: {
   		colors: {
   			brand: {
-  				'100': '#87CEEB',
+  				'100': '#5511EF',
   				'200': '#4682B4',
   				'300': '#1E90FF',
-  				'400': '#5F9EA0',
+  				'400': '#0000FF',
   				DEFAULT: '#04203D'
   			},
   			subbrand: {
-  				DEFAULT: '#042549'
+  				DEFAULT: '#042549',
+				'100': '#708090'
   			},
   			error: '#f81100',
   			success: '#3DD9B3',
