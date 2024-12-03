@@ -16,11 +16,11 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { sendEmailOTP, verifyOTP } from "@/lib/actions/user.actions";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export const OTPModal = ({accountId, email} : { accountId :string, email: string}) => {
     const Router = useRouter();
@@ -28,6 +28,16 @@ export const OTPModal = ({accountId, email} : { accountId :string, email: string
     const [otp, setOTP] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [resendTimer, setResendTimer] = useState(20);
+
+    useEffect(() => {
+        if (resendTimer > 0) {
+            const timerId = setInterval(() => {
+                setResendTimer(prevTimer => prevTimer - 1);
+            }, 1000);
+            return () => clearInterval(timerId);
+        }
+    }, [resendTimer]);
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -55,14 +65,17 @@ export const OTPModal = ({accountId, email} : { accountId :string, email: string
                 <AlertDialogHeader className="relative flex justify-center">
                     <AlertDialogTitle className="h2 w-full text-center">
                         Verify your OTP
-                        <Image 
-                            src="/assets/icons/close-dark.svg"
-                            alt="Close"
-                            width={24}
-                            height={24}
-                            onClick={() => setIsOpen(false)}
-                            className="otp-close-button"
-                        />
+                       <Image
+                        src="/assets/icons/close-dark.svg"
+                        alt="Close"
+                        width={24}
+                        height={24}
+                        onClick={() => { 
+                            setIsOpen(false); 
+                            redirect("/sign-in");
+                        }}
+                        className="otp-close-button"
+                    />
                     </AlertDialogTitle>
                     <AlertDialogDescription className="subtitle-2 text-center text-subbrand-100">
                        We've sent a 6-digit OTP to <span className="text-brand pl-1">{email}</span>.
@@ -101,7 +114,11 @@ export const OTPModal = ({accountId, email} : { accountId :string, email: string
                         </AlertDialogAction>
                     <div className="subtitle-2 mt-2 text-center text-subbrand-100">
                         Didn't receive the OTP?
-                        <Button type="button" variant="link" className="text-brand font-semibold" onClick={HandleResendOTP}> Resend OTP </Button>
+                        {resendTimer > 0 ? (
+                            <span className="text-brand font-semibold"> Resend OTP in {Math.floor(resendTimer / 60)}:{String(resendTimer % 60).padStart(2, '0')} </span>
+                        ) : (
+                            <Button type="button" variant="link" className="text-brand font-semibold" onClick={HandleResendOTP}> Resend OTP </Button>
+                        )}
                     </div>
                     </div>
                 </AlertDialogFooter>

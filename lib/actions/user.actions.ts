@@ -1,7 +1,7 @@
 'use server'
 
 import { Query, ID } from "node-appwrite";
-import { createAdminClient } from "../appwrite";
+import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 import { cookies } from "next/headers";
@@ -50,7 +50,7 @@ export const createAccount = async ({email, fullName, mobile} : { fullName : str
                 email,
                 fullName,
                 mobile,
-                avatar: "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg",
+                avatar: "@/public/avatar.jpg",
                 accountID
             }
         );
@@ -74,4 +74,19 @@ export const verifyOTP = async (accountID: string, otp: string) => {
     catch (error) {
         handleError(error, "Failed to verify OTP");
     }
+}
+
+export const getCurrentUser = async () => {
+    const { databases, account } = await createSessionClient();
+    const result = await account.get();
+
+    const user = await databases.listDocuments(
+        appwriteConfig.databaseID,
+        appwriteConfig.userCollectionID,
+        [
+            Query.equal("accountID", [result.$id])
+        ]
+    );
+    if (user.total) {return parseStringify(user.documents[0]);}
+    return null;
 }
