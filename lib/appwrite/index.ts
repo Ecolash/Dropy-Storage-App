@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 
 export const createSessionClient = async ( ) => {
     const client = new Client();
-    client.setEndpoint(appwriteConfig.endpointUrl).setProject(appwriteConfig.projectId);
+    client.setEndpoint(appwriteConfig.endpointurl).setProject(appwriteConfig.projectID);
 
     const session = (await cookies()).get("appwrite-session");
     if (!session || !session.value) {
@@ -21,7 +21,7 @@ export const createSessionClient = async ( ) => {
 
 export const createAdminClient = async ( ) => {
     const client = new Client();
-    client.setEndpoint(appwriteConfig.endpointUrl).setProject(appwriteConfig.projectId);
+    client.setEndpoint(appwriteConfig.endpointurl).setProject(appwriteConfig.projectID);
     client.setKey(appwriteConfig.secretKey);
 
     return {

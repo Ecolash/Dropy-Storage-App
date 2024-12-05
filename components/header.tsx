@@ -6,18 +6,17 @@ import FileUploader from "@/components/fileUpload";
 import { signOutUser } from "@/lib/actions/user.actions";
 
 const Header = ({
-  userId,
+  userID,
   accountID,
 }: {
-  userId: string;
+  userID: string;
   accountID: string;
 }) => {
   return (
     <header className="header">
       <Search />
       <div className="header-wrapper">
-        <FileUploader/>
-        {/* <FileUploader ownerId={userId} accountID={accountID} /> */}
+        <FileUploader ownerID={userID} accountID={accountID} />
         <form
           action={async () => {
             "use server";

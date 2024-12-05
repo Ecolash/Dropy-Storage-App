@@ -28,7 +28,7 @@ export const sendEmailOTP = async ({email}: {email: string})  => {
     const { account } = await createAdminClient();
     try {
         const session = await account.createEmailToken(ID.unique(), email);
-        return session.userId;
+        return session.userID;
     }
     catch (error) {
         handleError(error, "Failed to send email OTP");

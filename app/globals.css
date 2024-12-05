@@ -248,7 +248,7 @@
     @apply flex mt-2 flex-col justify-between sm:flex-row sm:items-center !important;
   }
   .file-list {
-    @apply grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 !important;
+    @apply grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 !important;
   }
   .sort-container {
     @apply mt-5 flex items-center sm:mt-0 sm:gap-3 !important;
@@ -311,10 +311,10 @@
 
   /* Card */
   .file-card {
-    @apply flex cursor-pointer flex-col gap-6 rounded-[18px] bg-white p-5 shadow-sm transition-all hover:shadow-drop-3 !important;
+    @apply flex cursor-pointer flex-col gap-0.5 rounded-[18px] pt-2 overflow-hidden bg-white shadow-sm transition-all hover:shadow-drop-3 !important;
   }
   .file-card-details {
-    @apply flex flex-col gap-2 text-light-100 !important;
+    @apply flex flex-col w-full bg-[#e3e6fa44] pl-3 py-1 text-light-100 overflow-hidden !important;
   }
 
   /* Chart */
@@ -355,7 +355,7 @@
   }
 
   .error-toast {
-    @apply bg-red !rounded-[10px] !important;
+    @apply bg-error !rounded-[10px] !important;
   }
 
   /* Header */
@@ -445,10 +445,10 @@
 
   /* Thumbnail */
   .thumbnail {
-    @apply flex-center size-[50px] min-w-[50px] overflow-hidden rounded-full bg-brand/10;
+    @apply flex-center mt-1 ml-3  overflow-hidden rounded-[6px] bg-brand/10 hover:scale-105 transition-all !important;
   }
   .thumbnail-image {
-    @apply size-full object-cover object-center !important;
+    @apply h-[100px] w-full object-contain !important;
   }
 }
 

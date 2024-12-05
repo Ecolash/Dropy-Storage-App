@@ -28,7 +28,7 @@ interface Props {
 }
 
 const MobileNav = ({
-  $id: ownerId,
+  $id: ownerID,
   accountID,
   fullName,
   avatar,
@@ -106,8 +106,7 @@ const MobileNav = ({
           {/* <Separator className="my-5 bg-light-200/20" /> */}
 
           <div className="flex flex-col justify-between gap-5 pb-5">
-            <FileUploader />
-            {/* <FileUploader ownerId={ownerId} accountID={accountID} /> */}
+            <FileUploader ownerID={ownerID} accountID={accountID} />
             <Button
               type="submit"
               className="mobile-sign-out-button"
