@@ -76,7 +76,7 @@ const Dashboard = async () => {
                   imageClassName="size-9 min-w-9"
                 />
 
-                <div className="recent-file-details">
+                <div className="recent-file-details flex flex-row">
                   <div className="flex flex-col gap-1">
                     <p className="recent-file-name">{file.name}</p>
                     <FormattedDateTime

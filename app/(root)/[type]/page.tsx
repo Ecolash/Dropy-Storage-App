@@ -4,6 +4,7 @@ import { getFiles, getTotalSpaceUsed } from "@/lib/actions/file.actions";
 import { Models } from "node-appwrite";
 import Card from "@/components/Card";
 import { convertFileSize, getFileTypesParams, getUsageSummary } from "@/lib/utils";
+import { SortAsc, SortDesc } from "lucide-react";
 
 const Page = async ({ searchParams, params }: SearchParamProps) => {
   const type = ((await params)?.type as string) || "";
@@ -28,8 +29,8 @@ const Page = async ({ searchParams, params }: SearchParamProps) => {
           </p>
 
           <div className="sort-container">
-            <p className="body-1 hidden text-light-200 sm:block">Sort by:</p>
-
+            <SortAsc className="sort-logo mr-1" />
+            <p className="hidden text-subbrand font-normal font-sans sm:block">Sort by:</p>
             <Sort />
           </div>
         </div>

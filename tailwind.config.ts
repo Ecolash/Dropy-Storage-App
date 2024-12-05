@@ -9,9 +9,13 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		screens: {
+        'lg-xl': { min: '1280px', max: '1480px' }, // Custom breakpoint
+		'xl-2xl': { min: '1480px' }, // Custom breakpoint
+      },
   		colors: {
   			brand: {
-  				'100': '#4421AB',
+  				'100': '#213491',
   				'200': '#4682B4',
   				'300': '#1E90FF',
   				'400': '#0000FF',
