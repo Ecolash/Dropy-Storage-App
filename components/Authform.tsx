@@ -1,6 +1,6 @@
 "use client";
 
-import { z } from "zod";
+import { set, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { createAccount } from "@/lib/actions/user.actions";
+import { createAccount, signInUser } from "@/lib/actions/user.actions";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -40,7 +40,7 @@ return z.object({
 const AuthForm = ({ type }: { type: FormType }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [accountId, setAccountId] = useState(null);
+  const [accountID, setaccountID] = useState(null);
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,18 +58,27 @@ const AuthForm = ({ type }: { type: FormType }) => {
         console.log("Mobile Number:", values.mobile);
         console.log("Email:", values.email);
         setIsLoading(true);
+        setErrorMessage("");
 
         try {
-          const user = await createAccount(
+          const user = type === "sign-up"? await createAccount(
             {
                 fullName: values.fullName || "",
                 mobile: values.mobile || "",
                 email: values.email
-            });
-          setAccountId(user.accountID);
+            }) : 
+            await signInUser({ email: values.email });
+          if(accountID === null) setErrorMessage('User not found!');
+          console.log("accountID:", user.accountID);
+          setaccountID(user.accountID);
         }
         catch {
+          console.log("Failed to create account");
           setErrorMessage('Failed to create account');
+
+        }
+        finally {
+          setIsLoading(false);
         }
        
     };
@@ -172,7 +181,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
             )}
           </Button>
 
-          {errorMessage && <p className="error-message">*{errorMessage}</p>}
+          {errorMessage && <p className="text-red-500 font-semibold text-center mb-1 text-[15px]">{errorMessage}</p>}
 
           <div className="body-2 flex justify-center">
             <p className="text-light-100">
@@ -190,7 +199,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           </div>
         </form>
       </Form>
-      {accountId && (<OTPModal email={form.getValues('email')} accountId={accountId} />)}
+      {accountID && (<OTPModal email={form.getValues('email')} accountID={accountID} />)}
     </div>
   );
 };

@@ -20,9 +20,9 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { sendEmailOTP, verifyOTP } from "@/lib/actions/user.actions";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export const OTPModal = ({accountId, email} : { accountId :string, email: string}) => {
+export const OTPModal = ({accountID, email} : { accountID :string, email: string}) => {
     const Router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
     const [otp, setOTP] = useState("");
@@ -45,7 +45,7 @@ export const OTPModal = ({accountId, email} : { accountId :string, email: string
         setErrorMessage("");
         console.log("OTP:", otp);
         try {
-            const sessionID = await verifyOTP(accountId, otp);
+            const sessionID = await verifyOTP(accountID, otp);
             if(sessionID)  Router.push("/");
         } catch {
             setErrorMessage("Failed to verify OTP! Please try again.");
@@ -55,6 +55,7 @@ export const OTPModal = ({accountId, email} : { accountId :string, email: string
     }
 
     const HandleResendOTP = async ( ) => {
+        setResendTimer(20);
         await sendEmailOTP({ email });
     }
 
@@ -72,7 +73,6 @@ export const OTPModal = ({accountId, email} : { accountId :string, email: string
                         height={24}
                         onClick={() => { 
                             setIsOpen(false); 
-                            redirect("/sign-in");
                         }}
                         className="otp-close-button"
                     />
