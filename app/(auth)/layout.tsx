@@ -42,13 +42,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             if (modal) modal.classList.toggle("hidden");
             }}
         >
-            <h4 className="h4">Features</h4>
+            <h4 className="text-lg font-semibold">More Info</h4>
             <Info className="ml-2" size={20} />
         </div>
 
         <div
             id="features-modal"
-            className="mt-2 space-y-1 bg-subbrand p-4 rounded-xl shadow-lg"
+            className="mt-2 space-y-1 bg-subbrand p-4 rounded-xl shadow-lg hidden"
         >
             <ul className="space-y-1 body-2 xl:body-1 text-white">
             <li className="flex items-center">

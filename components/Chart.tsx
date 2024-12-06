@@ -91,15 +91,15 @@ export const Chart = ({ used = 0 }: { used: number }) => {
       </CardContent>
       <CardHeader className="chart-details">
       <div>
-      <CardTitle className="chart-title">Available Storage</CardTitle>
+      <CardTitle className="chart-title">Used Storage</CardTitle>
       <CardDescription className="chart-description">
-        {used ? convertFileSize(used) : "100 MB"} / 100MB
+        {used ? convertFileSize(used) : "0 MB"} / 100MB
       </CardDescription>
       </div>
       <div className="xl-2xl:block hidden">
-      <CardTitle className="chart-title">Remaining Storage</CardTitle>
+      <CardTitle className="chart-title">Available Storage</CardTitle>
       <CardDescription className="chart-description">
-        {used ? convertFileSize(100 * 1024 * 1024 - used) : "0 MB"} / 100MB
+        {used ? convertFileSize(100 * 1024 * 1024 - used) : "100 MB"} / 100MB
       </CardDescription>
       </div>
       </CardHeader>

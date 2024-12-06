@@ -68,7 +68,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 email: values.email
             }) : 
             await signInUser({ email: values.email });
-          if(accountID === null) setErrorMessage('User not found!');
           console.log("accountID:", user.accountID);
           setaccountID(user.accountID);
         }

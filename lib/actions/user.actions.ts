@@ -28,7 +28,7 @@ export const sendEmailOTP = async ({email}: {email: string})  => {
     const { account } = await createAdminClient();
     try {
         const session = await account.createEmailToken(ID.unique(), email);
-        return session.userID;
+        return session.userId;
     }
     catch (error) {
         handleError(error, "Failed to send email OTP");
@@ -36,28 +36,34 @@ export const sendEmailOTP = async ({email}: {email: string})  => {
 }
 
 export const createAccount = async ({email, fullName, mobile} : { fullName : string; email: string; mobile: string }) => {
-    const existingUser = await getUserByEmail(email);
-    const accountID = await sendEmailOTP({ email });
-    if (!accountID) {
-        throw new Error("Failed to send an OTP!");
-    }
-    if(!existingUser) {
-        const { databases } = await createAdminClient();
-        await databases.createDocument(
-            appwriteConfig.databaseID,
-            appwriteConfig.userCollectionID,
-            ID.unique(),
-            {
-                email,
-                fullName,
-                mobile,
-                avatar: "/avatar.svg",
-                accountID
-            }
-        );
-    }
+    try {
+        const existingUser = await getUserByEmail(email);
+        const accountID = await sendEmailOTP({ email });
+        if (!accountID) {
+            console.log({accountID});
+            console.log("Failed to send an OTP!");
+            throw new Error("Failed to send an OTP!");
+        }
+        if(!existingUser) {
+            const { databases } = await createAdminClient();
+            await databases.createDocument(
+                appwriteConfig.databaseID,
+                appwriteConfig.userCollectionID,
+                ID.unique(),
+                {
+                    email,
+                    fullName,
+                    mobile,
+                    avatar: "/avatar.svg",
+                    accountID
+                }
+            );
+        }
 
-    return parseStringify( {accountID});
+        return parseStringify( {accountID});
+    } catch (error) {
+        handleError(error, "Failed to create account");
+    }
 }
 
 export const verifyOTP = async (accountID: string, otp: string) => {
