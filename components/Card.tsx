@@ -4,7 +4,7 @@ import Thumbnail from "@/components/Thumbnail";
 import { convertFileSize } from "@/lib/utils";
 import FormattedDateTime from "@/components/FormattedDateTime";
 import ActionDropdown from "@/components/ActionDropDown";
-import { User, UserRoundCheck } from "lucide-react";
+import { UserRoundCheck } from "lucide-react";
 
 const Card = ({ file }: { file: Models.Document }) => {
   return (

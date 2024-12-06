@@ -4,7 +4,7 @@ import { getFiles, getTotalSpaceUsed } from "@/lib/actions/file.actions";
 import { Models } from "node-appwrite";
 import Card from "@/components/Card";
 import { convertFileSize, getFileTypesParams, getUsageSummary } from "@/lib/utils";
-import { SortAsc, SortDesc } from "lucide-react";
+import { SortAsc } from "lucide-react";
 
 const Page = async ({ searchParams, params }: SearchParamProps) => {
   const type = ((await params)?.type as string) || "";
